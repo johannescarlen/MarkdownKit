@@ -36,6 +36,7 @@ open class MarkdownParser {
   /// Enables or disables detection of URLs even without Markdown format
   open var automaticLinkDetectionEnabled: Bool = true
   open let font: UIFont
+  open var textColor: UIColor = UIColor.black
 
   // MARK: Initializer
   public init(font: UIFont = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize),
@@ -81,6 +82,8 @@ open class MarkdownParser {
   open func parse(_ markdown: NSAttributedString) -> NSAttributedString {
     let attributedString = NSMutableAttributedString(attributedString: markdown)
     attributedString.addAttribute(NSFontAttributeName, value: font,
+                                  range: NSRange(location: 0, length: attributedString.length))
+    attributedString.addAttribute(NSForegroundColorAttributeName, value: textColor,
                                   range: NSRange(location: 0, length: attributedString.length))
     var elements: [MarkdownElement] = escapingElements
     elements.append(contentsOf: defaultElements)
